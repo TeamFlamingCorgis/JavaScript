@@ -1,4 +1,3 @@
-
 const config = {
     //http://0.0.0.0:8000/debate/debate-discussion-00000001.json
 	host: 'http://localhost',//local ip, remember to change on testing
@@ -8,16 +7,13 @@ const config = {
     ext: '.json'
 }
 
-var fs = require('fs');
-var files = fs.readdirSync(config.folder);
-
-console.log(files);
+var dataArray = [];
 
 var exports = {};
 
-// exports.default = ajax;
+exports.default = ajax;
 exports.get = get;
-// exports.post = post;
+exports.post = post;
 
 function ajax(opts) {
     return window.$.ajax(Object.assign({
@@ -50,10 +46,12 @@ function post(path, data, opts) {
     }, opts));
 }
 
-exports.get(config.folder).then(function (response) {
-  console.info("Loaded - JSON");
-  console.log(response);
+for(var i = 1; i <= 9; i++){
+    exports.get(config.folder + "debate-discussion-0000000" + i + config.ext).then(function (response) {
+      console.info("Loaded - JSON");
+      dataArray.push(response);
 
-}).catch(function (err) {
-  console.info("Final", err);
-});
+    }).catch(function (err) {
+      console.info("Final", err);
+    });
+}
