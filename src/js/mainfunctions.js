@@ -1,9 +1,11 @@
 
 const config = {
     //http://0.0.0.0:8000/debate/debate-discussion-00000001.json
-	host: 'localhost',//local ip, remember to change on testing
+	host: 'http://localhost',//local ip, remember to change on testing
 	port: '8000',
-	protocol: 'http'
+	protocol: 'json',
+    folder: '/debate/',
+    ext: '.json'
 }
 
 var exports = {};
@@ -18,7 +20,6 @@ function ajax(opts) {
         dataType: 'json',
         data: opts.data,
         type: "GET",
-        protocol: config.protocol,
         xhrFields: {
             withCredentials: false
         }
@@ -44,7 +45,7 @@ function post(path, data, opts) {
     }, opts));
 }
 
-exports.get("/debate/debate-discussion-00000001.json").then(function (response) {
+exports.get(config.folder).then(function (response) {
   console.info("Loaded - JSON");
   console.log(response);
 
