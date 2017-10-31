@@ -8,6 +8,11 @@ const config = {
     ext: '.json'
 }
 
+var fs = require('fs');
+var files = fs.readdirSync(config.folder);
+
+console.log(files);
+
 var exports = {};
 
 // exports.default = ajax;
