@@ -1,23 +1,26 @@
 
 const config = {
-	host: '0.0.0.0',//local ip, remember to change on testing
+    //http://0.0.0.0:8000/debate/debate-discussion-00000001.json
+	host: 'localhost',//local ip, remember to change on testing
 	port: '8000',
-	protocol: 'echo-protocol'
+	protocol: 'http'
 }
 
 var exports = {};
 
-exports.default = ajax;
+// exports.default = ajax;
 exports.get = get;
-exports.post = post;
+// exports.post = post;
+
 function ajax(opts) {
     return window.$.ajax(Object.assign({
-        url: "" + config.host + opts.path,
+        url: config.host + ":" + config.port + opts.path,
         dataType: 'json',
         data: opts.data,
         type: "GET",
+        protocol: config.protocol,
         xhrFields: {
-            withCredentials: true
+            withCredentials: false
         }
     }, opts)).catch(function (err) {
         console.error(err);
@@ -41,4 +44,10 @@ function post(path, data, opts) {
     }, opts));
 }
 
-console.log(get("/debate", "lol","null"));
+exports.get("/debate/debate-discussion-00000001.json").then(function (response) {
+  console.info("Loaded - JSON");
+  console.log(response);
+
+}).catch(function (err) {
+  console.info("Final", err);
+});
