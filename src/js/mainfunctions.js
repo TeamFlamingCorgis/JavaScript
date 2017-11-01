@@ -68,7 +68,7 @@ function getData(){
 getData();
 
 //Let's draw circles for at least one file
-function drawData(){
+function drawData(){ //specifies draw for discussion 5 only
     console.log(dataArray[5].ArgumentList);
     var firstcircle = dataArray[5].ArgumentList;
 
@@ -76,41 +76,37 @@ function drawData(){
         console.log(firstcircle[x].Argument.PremiseStance);
     }
 
+    //zeroviscosity.com/d3-js-step-by-step/step-1-a-basic-pie-chart
+
    (function(d3) {
-        'use strict';
-        var dataset = [
-          { label: 'Abulia', count: 10 },
-          { label: 'Betelgeuse', count: 20 },
-          { label: 'Cantaloupe', count: 30 },
-          { label: 'Dijkstra', count: 40 }
-        ];
+
         var width = 360;
         var height = 360;
-        var radius = Math.min(width, height) / 2;
-        var color = d3.scaleOrdinal()
-  .range(['#A60F2B', '#648C85', '#B3F2C9', '#528C18', '#C3F25C']);
-        var svg = d3.select('#chart')
-          .append('svg')
+        var radius = Math.min(width, height) / 2;//set the radius of the circle
+        var color = d3.scaleOrdinal(d3.schemeCategory20b)//defines the colour scale using D3's
+//   .range(['#A60F2B', '#648C85', '#B3F2C9', '#528C18', '#C3F25C']);
+        var svg = d3.select('#chart')//retrieve the element with id "chart"
+          .append('svg') //appends an svg (more or less holds data elements one wishes to add graphics to) to                     that element
           .attr('width', width)
           .attr('height', height)
-          .append('g')
+          .append('g') //appends g(centers the chart) element to the svg element
           .attr('transform', 'translate(' + (width / 2) +
             ',' + (height / 2) + ')');
-        var arc = d3.arc()
+        var arc = d3.arc()//defines the radius of the pie chart
           .innerRadius(0)
           .outerRadius(radius);
-        var pie = d3.pie()
+        var pie = d3.pie()//sets the start and end angles of each element. Not working though :(
           .value(function(d) {
-              var charlie = _.countBy(d, 'PremiseStance');
+              var charlie = _.countBy(d, 'PremiseStance');//counts premise stance handled by lodash
               console.log(charlie);
-                var num = 100/firstcircle.length;
+                var num = 100/firstcircle.length;//splits the pie chart per number of arguments
               return num;
           })
           .sort(null);
 
-        var path = svg.selectAll('path')
-          .data(pie(firstcircle))
-          .enter()
+        var path = svg.selectAll('path')//selects all the elements inside the svg
+          .data(pie(firstcircle))//this method associates the dataset with elements in firstcircle
+          .enter()//holds each value in the array
           .append('path')
           .attr('d', arc)
           .attr('fill', function(d) {
