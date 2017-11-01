@@ -71,15 +71,9 @@ getData();
 function drawData(){
     console.log(dataArray[5].ArgumentList);
     var firstcircle = dataArray[5].ArgumentList;
-    var prostance = 0, constance = 0;
 
     for(var x = 0; x < firstcircle.length; x++){
         console.log(firstcircle[x].Argument.PremiseStance);
-        if(firstcircle[x].Argument.PremiseStance == "Pro"){
-            prostance++;
-        }else{
-            constance++;
-        }
     }
 
    (function(d3) {
@@ -93,7 +87,8 @@ function drawData(){
         var width = 360;
         var height = 360;
         var radius = Math.min(width, height) / 2;
-        var color = d3.scaleOrdinal(d3.schemeCategory20b);
+        var color = d3.scaleOrdinal()
+  .range(['#A60F2B', '#648C85', '#B3F2C9', '#528C18', '#C3F25C']);
         var svg = d3.select('#chart')
           .append('svg')
           .attr('width', width)
@@ -105,20 +100,28 @@ function drawData(){
           .innerRadius(0)
           .outerRadius(radius);
         var pie = d3.pie()
-          .value(function(d) { return d.length; })
+          .value(function(d) {
+              var charlie = _.countBy(d, 'PremiseStance');
+              console.log(charlie);
+                var num = 100/firstcircle.length;
+              return num;
+          })
           .sort(null);
 
         var path = svg.selectAll('path')
-          .data(pie(dataArray[5].ArgumentList))
+          .data(pie(firstcircle))
           .enter()
           .append('path')
           .attr('d', arc)
           .attr('fill', function(d) {
-            return color(d.data.label);
+              console.log(d);
+              var charlie = _.countBy(d.data, 'PremiseStance');
+              var num = 100/firstcircle.length;
+            return color(charlie);
           });
       })(window.d3);
 
 
 }
 
-setTimeout(drawData, 1000);
+setTimeout(drawData, 2000);
