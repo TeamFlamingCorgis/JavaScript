@@ -1,15 +1,15 @@
 //We configure the host, port, protocol, etc so we can re-use it later
 const config = {
     //http://0.0.0.0:8000/debate/debate-discussion-00000001.json
-	host: 'http://localhost',//local ip, remember to change on testing
-	port: '8000',
+	host: 'http://localhost',//local ip
+	port: '8000',//port
 	protocol: 'json',
     folder: '/debate/',
     ext: '.json',
     numFiles: 10
 }
 
-//This will hold all the data from the files together
+//This will hold all the data from the files
 //It will be an array so we can use lodash to filter and clean it for D3js
 var dataArray = [];
 var counter = 1;
@@ -50,9 +50,13 @@ function get(path, data, opts) {
 // }
 
 //Get me the file contents please
+
 function getData(){
 
+
     //Let's get at least ten files
+    //change the string so it adds to it not replace the last digits.
+
     for(var i = 1; i <= 9; i++) {
         get(config.folder + "debate-discussion-0000000" + i + config.ext).then(function (response) {
             console.info("Loaded - JSON");
@@ -97,9 +101,9 @@ function drawData(){ //specifies draw for discussion 5 only
           .outerRadius(radius);
         var pie = d3.pie()//sets the start and end angles of each element. Not working though :(
           .value(function(d) {
-              var charlie = _.countBy(d, 'PremiseStance');//counts premise stance handled by lodash
+              var charlie = _.countBy(d, 'PremiseStance');//counts premise stance; handled by lodash
               console.log(charlie);
-                var num = 100/firstcircle.length;//splits the pie chart per number of arguments
+                var num = 100/firstcircle.length;//should split the pie chart per number of arguments
               return num;
           })
           .sort(null);
