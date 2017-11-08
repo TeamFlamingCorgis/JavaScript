@@ -49,9 +49,28 @@ function get(path, data, opts) {
 //     }, opts));
 // }
 
-//Get me the file contents please
+//Get me the folder contents please
+//filePath = '/home/wiri2473/Desktop/argument-data/idebate/*.json';
 
-function getData(){
+var loadFile = function(filePath, done){
+    var xhr = new XMLHttpRequest();
+    xhr.onload = function() {return done(this.responseText)
+    }
+    xhr.open("GET", filePath, true);
+    xhr.send();
+}
+var argFiles = ["/home/wiri2473/Desktop/argument-data/idebate/*.json" ];
+var jsonArray = [];
+
+argFiles.forEach(function (argFiles, i){
+    loadFile(i, function(responseText){
+        jsonArray[i] = JSON.parse(responseText);
+        console.log(responseText);
+        return(jsonArray);
+    })
+})
+
+/*function getData(){
 
 
     //Let's get at least ten files
@@ -67,14 +86,14 @@ function getData(){
             console.info("No data? FAIL", err);//No data? FAIL
         });
     }
-}
+}*/
 
-getData();
+//getData();
 
 //Let's draw circles for at least one file
-function drawData(){ //specifies draw for discussion 5 only
-    console.log(dataArray[5].ArgumentList);
-    var firstcircle = dataArray[5].ArgumentList;
+/*function drawData(){ //specifies draw for discussion 5 only
+    console.log(jsonArray[].ArgumentList);
+    var firstcircle = jsonArray[].ArgumentList;
 
     for(var x = 0; x < firstcircle.length; x++){
         console.log(firstcircle[x].Argument.PremiseStance);
@@ -124,4 +143,4 @@ function drawData(){ //specifies draw for discussion 5 only
 
 }
 
-setTimeout(drawData, 2000);
+setTimeout(drawData, 2000);*/
