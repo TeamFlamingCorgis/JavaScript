@@ -50,8 +50,7 @@ function get(path, data, opts) {
 // }
 
 //Get me the folder contents please
-//filePath = '/home/wiri2473/Desktop/argument-data/idebate/*.json';
-
+filePath = '/home/wiri2473/Desktop/argument-data/idebate/*.json';
 var loadFile = function(filePath, done){
     var xhr = new XMLHttpRequest();
     xhr.onload = function() {return done(this.responseText)
@@ -66,7 +65,6 @@ argFiles.forEach(function (argFiles, i){
     loadFile(i, function(responseText){
         jsonArray[i] = JSON.parse(responseText);
         console.log(responseText);
-        return(jsonArray);
     })
 })
 
@@ -92,8 +90,8 @@ argFiles.forEach(function (argFiles, i){
 
 //Let's draw circles for at least one file
 /*function drawData(){ //specifies draw for discussion 5 only
-    console.log(jsonArray[].ArgumentList);
-    var firstcircle = jsonArray[].ArgumentList;
+    console.log(dataArray[].ArgumentList);
+    var firstcircle = dataArray[].ArgumentList;
 
     for(var x = 0; x < firstcircle.length; x++){
         console.log(firstcircle[x].Argument.PremiseStance);
