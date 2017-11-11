@@ -50,7 +50,7 @@ function get(path, data, opts) {
 // }
 
 //Get me the folder contents please
-filePath = '/home/wiri2473/Desktop/argument-data/idebate/*.json';
+filePath = config.host + ':8000/idebate/';
 var loadFile = function(filePath, done){
     var xhr = new XMLHttpRequest();
     xhr.onload = function() {return done(this.responseText)
@@ -58,15 +58,38 @@ var loadFile = function(filePath, done){
     xhr.open("GET", filePath, true);
     xhr.send();
 }
-var argFiles = ["/home/wiri2473/Desktop/argument-data/idebate/*.json" ];
+var argFiles = [config.host + ':8000/idebate/'];
 var jsonArray = [];
 
-argFiles.forEach(function (argFiles, i){
-    loadFile(i, function(responseText){
-        jsonArray[i] = JSON.parse(responseText);
-        console.log(responseText);
+
+//First, load the directory
+loadFile(argFiles, function(responseText){
+    //get only the names of the files in the directory. this is a dirty array
+    var dirty = JSON.stringify(responseText).match(/(idebate\-discussion\-(\d+).json)/g);
+    //clean the dirty array (by eliminating duplicates) with LoDash
+    var clean = _.uniq(dirty)
+
+    //On the clean array, load the file content of each file on the array
+    clean.forEach(function (t, number) {
+        theJsonfilepath = config.host + ':8000/idebate/' + t;
+        loadFile(theJsonfilepath, function (res) {
+            //push the content to the jsonArray
+            //BEWAREEEEE!!!! There are a lot of files, they won't come right away
+            jsonArray.push(JSON.parse(res));
+        })
+
     })
-})
+});
+
+
+//Give it at least three seconds to load, let them breathe, and after all the files are loaded
+//voila! the jsonArray has all the data
+//BYEEEEEE
+
+setTimeout(function () {
+    console.log(jsonArray);
+}, 3000);
+
 
 /*function getData(){
 
