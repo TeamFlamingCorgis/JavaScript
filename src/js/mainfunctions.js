@@ -49,7 +49,7 @@ function get(path, data, opts) {
 //     }, opts));
 // }
 
-//Get me the folder contents please
+//Get me the folder please
 filePath = config.host + ':8000/idebate/';
 var loadFile = function(filePath, done){
     var xhr = new XMLHttpRequest();
@@ -62,11 +62,11 @@ var argFiles = [config.host + ':8000/idebate/'];
 var jsonArray = [];
 
 
-//First, load the directory
+//Now, load the directory
 loadFile(argFiles, function(responseText){
-    //get only the names of the files in the directory. this is a dirty array
+    //get only the names of the files in the directory. this is a dirty array with duplicates and what not
     var dirty = JSON.stringify(responseText).match(/(idebate\-discussion\-(\d+).json)/g);
-    //clean the dirty array (by eliminating duplicates) with LoDash
+    //clean the dirty array (by eliminating duplicates) with LoDash(bae <3 <3)
     var clean = _.uniq(dirty)
 
     //On the clean array, load the file content of each file on the array
@@ -76,11 +76,10 @@ loadFile(argFiles, function(responseText){
             //push the content to the jsonArray
             //BEWAREEEEE!!!! There are a lot of files, they won't come right away
             jsonArray.push(JSON.parse(res));
-        })
 
+        })    
     })
 });
-
 
 //Give it at least three seconds to load, let them breathe, and after all the files are loaded
 //voila! the jsonArray has all the data
@@ -89,7 +88,16 @@ loadFile(argFiles, function(responseText){
 setTimeout(function () {
     console.log(jsonArray);
 }, 3000);
+//Sort the jsonArray in descending order
+var sortedArray = jsonArray.sort(function compareNumbers(a, b){
+    return (a.ArgumentList.length - b.ArgumentList.length);
+})
+console.log(sortedArray);
 
+// var sortedArray = jsonArray.map(function () {
+//     return _.orderBy(ArgumentList, function(), ['desc']);
+//     console.log(sortedArray)
+// })
 
 /*function getData(){
 
