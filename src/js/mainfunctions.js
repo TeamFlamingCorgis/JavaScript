@@ -89,23 +89,36 @@ setTimeout(function () {
     console.log(jsonArray);
 }, 3000);
 
-//Sort the jsonArray in descending order
+//Sort jsonArray in descending order
+
+//METHOD 1
 // function sorMultiDimensional(a, b){
 //     return ((a.ArgumentList.length < b.ArgumentList.length) ? -1 : ((a.ArgumentList.length > b.ArgumentList.length) ? 1 : 0));
 // }
 // var sortedArray = jsonArray.sort(sorMultiDimensional);
-function sortArray(jsonArray, ArgumentList) {
-    jsonArray.sort(function(a,b){
-        return a[ArgumentList].length - b[ArgumentList].length;
-    })
-}
-var sortedArray = jsonArray.sort(sortArray);
-console.log(sortedArray);
+// console.log(sortedArray)
 
+//METHOD 2
+// function sortArray(jsonArray, ArgumentList) {
+//     jsonArray.sort(function(a,b){
+//         return a[ArgumentList].length - b[ArgumentList].length;
+//     })
+// }
+// var sortedArray = jsonArray.sort(sortArray);
+// console.log(sortedArray);
+
+//METHOD 3 Lodash
 // var sortedArray = jsonArray.map(function () {
 //     return _.orderBy(ArgumentList, function(), ['desc']);
 //     console.log(sortedArray)
 // })
+
+//METHOD 4
+// var sortedArray = jsonArray.sort(function compareFunction(a, b){
+//     return (a.ArgumentList.length - b.ArgumentList.length);
+// })
+// console.log(sortedArray);
+
 
 /*function getData(){
 
