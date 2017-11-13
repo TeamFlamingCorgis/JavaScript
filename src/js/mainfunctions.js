@@ -88,10 +88,18 @@ loadFile(argFiles, function(responseText){
 setTimeout(function () {
     console.log(jsonArray);
 }, 3000);
+
 //Sort the jsonArray in descending order
-var sortedArray = jsonArray.sort(function compareNumbers(a, b){
-    return (a.ArgumentList.length - b.ArgumentList.length);
-})
+// function sorMultiDimensional(a, b){
+//     return ((a.ArgumentList.length < b.ArgumentList.length) ? -1 : ((a.ArgumentList.length > b.ArgumentList.length) ? 1 : 0));
+// }
+// var sortedArray = jsonArray.sort(sorMultiDimensional);
+function sortArray(jsonArray, ArgumentList) {
+    jsonArray.sort(function(a,b){
+        return a[ArgumentList].length - b[ArgumentList].length;
+    })
+}
+var sortedArray = jsonArray.sort(sortArray);
 console.log(sortedArray);
 
 // var sortedArray = jsonArray.map(function () {
