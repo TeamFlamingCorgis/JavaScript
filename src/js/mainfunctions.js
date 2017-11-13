@@ -87,7 +87,18 @@ loadFile(argFiles, function(responseText){
 
 setTimeout(function () {
     console.log(jsonArray);
-}, 3000);
+
+}, 4000);
+
+setTimeout(function () {
+   var sortedArray = _.orderBy(jsonArray, ['ArgumentList', function(al){
+        // console.log(al.ArgumentList);
+        // console.log(al.ArgumentList.length);
+        return al.ArgumentList.length;
+   }], ["desc"]);
+     console.log(sortedArray);
+    
+}, 5000);
 
 //Sort jsonArray in descending order
 
