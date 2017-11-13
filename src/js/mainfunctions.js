@@ -90,6 +90,7 @@ setTimeout(function () {
 
 }, 4000);
 
+//sort the data by Argumrnt list length
 setTimeout(function () {
    var sortedArray = _.orderBy(jsonArray, ['ArgumentList', function(al){
         // console.log(al.ArgumentList);
@@ -98,7 +99,7 @@ setTimeout(function () {
    }], ["desc"]);
      console.log(sortedArray);
     
-}, 5000);
+}, 5000)
 
 //Draw Discussion data
 
