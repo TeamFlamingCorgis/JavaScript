@@ -60,7 +60,7 @@ var loadFile = function(filePath, done){
 }
 var argFiles = [config.host + ':8000/idebate/'];
 var jsonArray = [];
-
+var sortedArray = [];
 
 //Now, load the directory
 loadFile(argFiles, function(responseText){
@@ -75,7 +75,7 @@ loadFile(argFiles, function(responseText){
         loadFile(theJsonfilepath, function (res) {
             //push the content to the jsonArray
             //BEWAREEEEE!!!! There are a lot of files, they won't come right away
-            jsonArray.push(JSON.parse(res));
+            jsonArray.push(JSON.parse(res));     
 
         })    
     })
@@ -92,7 +92,7 @@ setTimeout(function () {
 
 //sort the data by Argumrnt list length
 setTimeout(function () {
-   var sortedArray = _.orderBy(jsonArray, ['ArgumentList', function(al){
+   var sortedArray = _.orderBy(jsonArray, ["ArgumentList", function(al){
         // console.log(al.ArgumentList);
         // console.log(al.ArgumentList.length);
         return al.ArgumentList.length;
@@ -101,5 +101,51 @@ setTimeout(function () {
     
 }, 5000)
 
-//Draw Discussion data
+if (document.addEventListener){
+    document.addEventListener("DOMContentLoaded", function(sortedArray){
+        visualise();
+        }
+    )} else {
+        
+    if(document.readyState !== "loading"){
+        visualise();
+    }
+}
+
+var chartContainer = d3.select("#chart-container");
+var svgWidth = 960;
+var svgHeight = 500;
+var margin = {top: 10, left: 40, bottom: 90, right:10};
+var w = svgWidth - margin.left - margin.right;
+var h = svgHeight - margin.top - margin.bottom;
+var xScale = d3.scaleLinear().range([0,w]);
+var yScale = d3.scaleBand().rangeRound([h, 0]);
+
+
+var svg = chartContainer.append("svg").attr("width", svgWidth).attr("height", svgHeight);
+
+var chart = svg.append("g").attr("id", "chart-container").attr("transform", "scale(1, 1) translate(" + margin.left + "," + margin.top + ")").attr("width", w).attr("height", h);
+
+function visualise(error, sortedArray){
+    if (error){
+        console.log(error);}
+
+        xScale.domain([0, d3.max(sortedArray, function(d){return d.ArgumentList.length; console.log (d.ArgumentList.length)})]);
+        yScale.domain(sortedArray.map(function(d){return d.ArgumentList})).padding(0.1);
+        g.append("g").attr("class", "x axis")
+            .attr("transform", "translate(0," + h +")")
+            .call(d3.axisBottom(xScale).ticks(5).tickFormat(function(d){ return parseInt(d/1000);}).tickSizeInner([-h]));
+
+        g.append("g").attr("class", "y axis")
+            .call(d3.axisLeft(yScale));
+
+        g.selectAll(".bar").data(sortedArray)
+            .enter().append("rect")
+            .attr("class", "bar")
+            .attr("xScale", 0)
+            .attr("h", yScale.bandwidth())
+            .attr("yScale", function(d){ return yScale(d.ArgumentList);})
+            .attr("w", function(d){ return xScale(d.ArgumentList.length);})
+          
+}
 

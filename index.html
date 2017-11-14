@@ -8,73 +8,24 @@
      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
      <!--D3 for the graphics-->
      <script src="https://d3js.org/d3.v4.min.js"></script>
-     <script src="https://d3js.org/d3-array.v1.min.js"></script>
-     <!--Bootstrap-->
-     <!-- Bootstrap's CSS for the components we will need -->
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-     <!-- Bootstrap's javascript for all the things we need to compile fast lol -->
-     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
      <!--Lodash to handle all our objects and arrays-->
      <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.4/lodash.min.js"></script>
      <script src="src/js/mainfunctions.js"></script>
      <!--svg-->
-     <svg class="chart"></svg>
-    <style>
-    .chart rect {
-        fill: steelblue;
-
-    }                
-    .chart text {
-        fill: white;
-        font: 10px sans-serif;
-        text-anchor: start;
-        font-size: 12px;
-    }
-   
-    </style>
+     <svg class="chart-container"></svg>
+     <svg width="960" height="500"></svg>
  </head>
+ <style>
+     .chart rect {
+         fill: steelblue;
+     }
+     .chart text{
+         fill: white-space;
+         font: 10px sans-serif;
+         text-anchor: end;
+     }
+ 
+ </style>
 <body>
-    <h1>Hi There</h1>
-<script>
-//     var margin = {top: 20, right: 20, bottom: 70, left: 40},
-//     width = 600 - margin.left - margin.right,
-//     height = 300 - margin.top - margin.bottom;
-
-
-// // set the ranges
-// var x = d3.scale.ordinal().rangeRoundBands([0, width], .05);
-
-// var y = d3.scale.linear().range([height, 0]);
-
-// // define the axis
-// var xAxis = d3.svg.axis()
-//     .scale(x)
-//     .orient("bottom")
-
-
-// var yAxis = d3.svg.axis()
-//     .scale(y)
-//     .orient("left")
-//     .ticks(10);
-
-
-// // add the SVG element
-// var svg = d3.select("body").append("svg")
-//     .attr("width", width + margin.left + margin.right)
-//     .attr("height", height + margin.top + margin.bottom)
-//   .append("g")
-//     .attr("transform", 
-//           "translate(" + margin.left + "," + margin.top + ")");
-
-
-// load the data
-var nowArray = d3.json(sortedArray, function(error, disData ) {
-    console.log(disData);
-    // if (error){
-    //     console.log(error);
-    // }
-})
- </script>
-
 </body>
 </html>

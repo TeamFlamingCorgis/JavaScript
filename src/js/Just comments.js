@@ -140,4 +140,82 @@ svg.selectAll("rect")
     .data(sortedArray)
     .enter().append("rect");
 
+    //     var margin = {top: 20, right: 20, bottom: 70, left: 40},
+//     width = 600 - margin.left - margin.right,
+//     height = 300 - margin.top - margin.bottom;
+
+    <!-- <style>
+    .chart rect {
+        fill: steelblue;
+
+    }                
+    .chart text {
+        fill: white;
+        font: 10px sans-serif;
+        text-anchor: start;
+        font-size: 12px;
+    }
+   
+    </style> -->
+
+// // set the ranges
+// var x = d3.scale.ordinal().rangeRoundBands([0, width], .05);
+
+// var y = d3.scale.linear().range([height, 0]);
+
+// // define the axis
+// var xAxis = d3.svg.axis()
+//     .scale(x)
+//     .orient("bottom")
+
+
+// var yAxis = d3.svg.axis()
+//     .scale(y)
+//     .orient("left")
+//     .ticks(10);
+
+
+// // add the SVG element
+// var svg = d3.select("body").append("svg")
+//     .attr("width", width + margin.left + margin.right)
+//     .attr("height", height + margin.top + margin.bottom)
+//   .append("g")
+//     .attr("transform", 
+//           "translate(" + margin.left + "," + margin.top + ")");
+
+
+// load the data
+// var nowArray = d3.json(sortedArray, function(error, disData ) {
+//     console.log(nowArray);
+//     // if (error){
+//     //     console.log(error);
+    // }
+// })
     } */
+
+    // <!--Bootstrap-->
+    // <!-- Bootstrap's CSS for the components we will need -->
+    // <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    // <!-- Bootstrap's javascript for all the things we need to compile fast lol -->
+    // <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+
+    // var width = 300, barHeight = 20;
+    // var x = d3.scaleLinear().range([0, width]);
+    // var chart = d3.select(".chart").attr("width", width);
+    
+    // var bar = chart.SelectAll("g").data(sortedArray)
+    //     .enter().append("g")
+    //     .attr("transform", function(d, i){
+    //         return "translate(0," + i * barHeight + ")"
+    //     });
+    //     bar.append("rect")
+    //     .attr("width", function(d){return x(d.al.ArgumentList.length);})
+    //     .attr ("height", barHeight - 1);
+        
+    //     bar.append("text")
+    //     .attr("x", function(d){return x(d.al.ArgumentList.length) - 3; })
+    //     .attr("y", barHeight/2)
+    //     attr("dy", ".35em")
+    //     .text(function(d){
+    //         return d.al.ArgumentList.length;
+    //     })
