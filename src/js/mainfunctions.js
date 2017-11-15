@@ -101,8 +101,10 @@ setTimeout(function () {
     
 }, 5000)
 
+//Not sure if this is absolutely necessary; visualise should still execute without it or I can find another way to call the visualise function.
+
 if (document.addEventListener){
-    document.addEventListener("DOMContentLoaded", function(sortedArray){
+    document.addEventListener("DOMContentLoaded", function(){
         visualise();
         }
     )} else {
@@ -118,6 +120,7 @@ var svgHeight = 500;
 var margin = {top: 10, left: 40, bottom: 90, right:10};
 var w = svgWidth - margin.left - margin.right;
 var h = svgHeight - margin.top - margin.bottom;
+//match input values(ArgumentList and length) to output units
 var xScale = d3.scaleLinear().range([0,w]);
 var yScale = d3.scaleBand().rangeRound([h, 0]);
 
@@ -126,26 +129,35 @@ var svg = chartContainer.append("svg").attr("width", svgWidth).attr("height", sv
 
 var chart = svg.append("g").attr("id", "chart-container").attr("transform", "scale(1, 1) translate(" + margin.left + "," + margin.top + ")").attr("width", w).attr("height", h);
 
+//function for d3 and svg; it takes sortedArray as input
 function visualise(error, sortedArray){
+    //log error if any
     if (error){
         console.log(error);}
+//specifies which data is passed to the x and y scales
+        xScale.domain([0, d3.extent(sortedArray, function(d){
+            console.log (d.ArgumentList)})]);
 
-        xScale.domain([0, d3.max(sortedArray, function(d){return d.ArgumentList.length; console.log (d.ArgumentList.length)})]);
-        yScale.domain(sortedArray.map(function(d){return d.ArgumentList})).padding(0.1);
-        g.append("g").attr("class", "x axis")
-            .attr("transform", "translate(0," + h +")")
-            .call(d3.axisBottom(xScale).ticks(5).tickFormat(function(d){ return parseInt(d/1000);}).tickSizeInner([-h]));
+            //return d.ArgumentList.length; 
+        // yScale.domain(sortedArray.map(function(d){return d.ArgumentList})).padding(0.1);
 
-        g.append("g").attr("class", "y axis")
-            .call(d3.axisLeft(yScale));
+        // //create and append the axes to the svg
+        // g.append("g").attr("class", "x axis")
+        //     .attr("transform", "translate(0," + h +")")
+        //     .call(d3.axisBottom(xScale).ticks(5).tickFormat(function(d){ return parseInt(d/1000);}).tickSizeInner([-h]));
 
-        g.selectAll(".bar").data(sortedArray)
-            .enter().append("rect")
-            .attr("class", "bar")
-            .attr("xScale", 0)
-            .attr("h", yScale.bandwidth())
-            .attr("yScale", function(d){ return yScale(d.ArgumentList);})
-            .attr("w", function(d){ return xScale(d.ArgumentList.length);})
+        // g.append("g").attr("class", "y axis")
+        //     .call(d3.axisLeft(yScale));
+
+        //     //add the bars for each ArgumentList
+        // g.selectAll(".bar").data(sortedArray)
+        //     .enter().append("rect")
+        //     .attr("class", "bar")
+        //     .attr("xScale", 0)
+        //     .attr("h", yScale.bandwidth())
+        //     .attr("yScale", function(d){ return yScale(d.ArgumentList);})
+        //     //width of each bar corresponds to the AL length
+        //     .attr("w", function(d){ return xScale(d.ArgumentList.length);})
           
 }
 
