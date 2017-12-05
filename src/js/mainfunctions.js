@@ -39,15 +39,7 @@ function get(path, data, opts) {
     }, opts));
 }
 
-//HERE IS YOUR DATAAAA
-//We dont need it for now because we are getting data, not posting (yet)
-// function post(path, data, opts) {
-//     return ajax(Object.assign({
-//         path: path,//same as get
-//         data: data,//same as get
-//         type: "POST"
-//     }, opts));
-// }
+
 
 //Get me the folder please
 filePath = config.host + ':8000/idebate/';
@@ -60,7 +52,7 @@ var loadFile = function(filePath, done){
 }
 var argFiles = [config.host + ':8000/idebate/'];
 var jsonArray = [];
-//var onlyArg = [{}];
+var onlyArg = {};
 
 
 //Now, load the directory
@@ -84,15 +76,22 @@ loadFile(argFiles, function(responseText){
 });
 console.log(jsonArray);
 
-setTimeout(function getArguments(jsonArray){
-    var onlyArg = [{}];
-    for (var i=0; i<700; i++){
-        for (var MetaData in jsonArray[i]){
-            console.log(jsonArray.MetaData.DiscussionID);
+setTimeout(function getArguments(error, jsonArray){
+    if (error){
+        console.log(error)
+    } else {
+            
+    for ( i=0; i<700; i++){
+        for (var Argument in jsonArray){
+            onlyArg[ArgumentID] = ArgumentList.Argument.ArgumentID;
+            console.log(onlyArg);
 
     }
          //onlyArg[DiscussionID] = jsonArray.MetaData[DiscussionID];
         }
+
+    }
+
     //console.log(onlyArg);
 
    /* jsonArray.forEach(function (al){
@@ -104,9 +103,8 @@ setTimeout(function getArguments(jsonArray){
 }, 7000);
 
 
-//Give it at least three seconds to load, let them breathe, and after all the files are loaded
-//voila! the jsonArray has all the data
-//BYEEEEEE
+//Give it five seconds to load, and after all the files are loaded the sortedArray has all the data
+
 
 
 /* setTimeout(function () {

@@ -1,3 +1,13 @@
+//HERE IS YOUR DATAAAA
+//We dont need it for now because we are getting data, not posting (yet)
+// function post(path, data, opts) {
+//     return ajax(Object.assign({
+//         path: path,//same as get
+//         data: data,//same as get
+//         type: "POST"
+//     }, opts));
+// }
+
 //Sort jsonArray in descending order
 
 //METHOD 1
