@@ -219,3 +219,14 @@ svg.selectAll("rect")
     //     .text(function(d){
     //         return d.al.ArgumentList.length;
     //     })
+
+    /*   
+    var requirejs = require(['requirejs'], function(requirejs){});
+var fs = require(["fs"], function(fs){});
+fs.writeFile(":8000/result/sorted.json", JSON.stringify(sortedArray, null, 4), (err) => {
+        if (err){
+            console.log(err);
+            return;
+        }
+        console.log("File has been created")
+    }) */

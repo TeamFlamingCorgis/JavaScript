@@ -1,9 +1,9 @@
- //We configure the host, port, protocol, etc so we can re-use it later
- const config = {
+//We configure the host, port, protocol, etc so we can re-use it later
+const config = {
     //http://0.0.0.0:8000/debate/debate-discussion-00000001.json
-    host: 'http://localhost',//local ip
-    port: '8000',//port
-    protocol: 'json',
+	host: 'http://localhost',//local ip
+	port: '8000',//port
+	protocol: 'json',
     folder: '/debate/',
     ext: '.json',
     numFiles: 10
@@ -60,8 +60,8 @@ var loadFile = function(filePath, done){
 }
 var argFiles = [config.host + ':8000/idebate/'];
 var jsonArray = [];
-//var onlyArg = [{}];
-
+var sortedArray = [];
+//var lenghtOnly = [];
 
 //Now, load the directory
 loadFile(argFiles, function(responseText){
@@ -69,54 +69,34 @@ loadFile(argFiles, function(responseText){
     var dirty = JSON.stringify(responseText).match(/(idebate\-discussion\-(\d+).json)/g);
     //clean the dirty array (by eliminating duplicates) with LoDash(bae <3 <3)
     var clean = _.uniq(dirty)
-    //console.log(clean);
 
-    //On the clean array, load the file content of each file on the array
-    clean.forEach(function (t, number) {
+         //On the clean array, load the file content of each file on the array
+    clean.forEach(function(t, number){
         theJsonfilepath = config.host + ':8000/idebate/' + t;
         loadFile(theJsonfilepath, function (res) {
-            //push the content to the jsonArray
-            //BEWAREEEEE!!!! There are a lot of files, they won't come right away
+                    //push the content to the jsonArray
+                    //Remeber! There are a lot of files, they won't come right away
             jsonArray.push(JSON.parse(res));
-          
-        })    
-    })
-});
-console.log(jsonArray);
+                })
+            })
+        });
 
-setTimeout(function getArguments(jsonArray){
-    var onlyArg = [{}];
-    for (var i=0; i<700; i++){
-        for (var MetaData in jsonArray[i]){
-            console.log(jsonArray.MetaData.DiscussionID);
+        setTimeout(function(){
+            console.log(jsonArray);
+        }, 3000);
 
-    }
-         //onlyArg[DiscussionID] = jsonArray.MetaData[DiscussionID];
-        }
-    //console.log(onlyArg);
-
-   /* jsonArray.forEach(function (al){
-        allArgs[Argument.ArgumentID] = Argument.Premise + " " + Argument.Conclusion;
-    });
-    return allArgs;
-    console.log(allArgs);*/
-
-}, 7000);
-
-
-//Give it at least three seconds to load, let them breathe, and after all the files are loaded
-//voila! the jsonArray has all the data
-//BYEEEEEE
-
-
-/* setTimeout(function () {
-   var sortedArray = _.orderBy(jsonArray, ['ArgumentList', function(al){
-        // console.log(al.ArgumentList);
-        // console.log(al.ArgumentList.length);
-        return al.ArgumentList.length;
-   }], ["desc"]);
-     console.log(sortedArray);
-    
-}, 5000); 
-
-*/
+        setTimeout(function () {
+            var sortedArray = _.orderBy(jsonArray, ["ArgumentList", function(al){
+                    return al.ArgumentList.length;
+            }], ["desc"]);
+            fs.writeFile(":8000/result/sorted.json", JSON.stringify(sortedArray, null, 4), (err) => {
+                if (err){
+                    console.log(err);
+                    return;
+                }
+                console.log("File has been created")
+            })
+            console.log(sortedArray);
+         }, 5000
+        
+        )
